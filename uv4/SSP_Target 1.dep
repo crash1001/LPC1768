@@ -1,0 +1,21 @@
+Dependencies for Project 'SSP', Target 'Target 1': (DO NOT MODIFY !)
+F (.\startup_LPC17xx.s)(0x532C12D4)(--cpu Cortex-M3 -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\NXP\LPC17xx--list .\startup_lpc17xx.lst --xref -o ..\output\startup_lpc17xx.o --depend ..\output\startup_lpc17xx.d)
+F (C:\Keil\ARM\Startup\NXP\LPC17xx\system_LPC17xx.c)(0x532C12D4)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\lib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\NXP\LPC17xx-o ..\output\system_lpc17xx.o --omf_browse ..\output\system_lpc17xx.crf --depend ..\output\system_lpc17xx.d)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7E4F8)
+I (C:\Keil\ARM\Inc\NXP\LPC17xx\LPC17xx.h)(0x532C13B0)
+I (C:\Keil\ARM\CMSIS\Include\core_cm3.h)(0x532C1766)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C1766)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C1766)
+I (C:\Keil\ARM\Inc\NXP\LPC17xx\system_LPC17xx.h)(0x532C13B0)
+F (..\src\main.c)(0x58A80FA3)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I..\lib-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\NXP\LPC17xx-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
+I (..\lib\lpc17xx_ssp.h)(0x4E5B40B0)
+I (C:\Keil\ARM\Inc\NXP\LPC17xx\LPC17xx.h)(0x532C13B0)
+I (C:\Keil\ARM\CMSIS\Include\core_cm3.h)(0x532C1766)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7E4F8)
+I (C:\Keil\ARM\CMSIS\Include\core_cmInstr.h)(0x532C1766)
+I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x532C1766)
+I (C:\Keil\ARM\Inc\NXP\LPC17xx\system_LPC17xx.h)(0x532C13B0)
+I (..\lib\lpc_types.h)(0x4E5B40B0)
+I (..\lib\lpc17xx_libcfg.h)(0x4E5B40B0)
+I (..\lib\lpc17xx_pinsel.h)(0x4E5B40B0)
+I (..\lib\lpc17xx_gpio.h)(0x58A81080)
