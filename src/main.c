@@ -64,20 +64,20 @@ void ssp_entry(void)	{
 	
 	//Initizing SSP
 	SSP_ConfigStruct.Databit = SSP_DATABIT_16;
-	SSP_ConfigStruct.Mode = SSP_MASTER_MODE;
-	SSP_ConfigStruct.FrameFormat = SSP_FRAME_SPI;
-	SSP_ConfigStruct.ClockRate = 1000000;
-	SSP_ConfigStruct.CPHA = SSP_CPHA_FIRST;					//0
-	SSP_ConfigStruct.CPOL = SSP_CPOL_LO;						//0
+	SSP_ConfigStruct.Mode = 0;
+	SSP_ConfigStruct.FrameFormat = 0;
+	SSP_ConfigStruct.ClockRate = 125000000;
+	SSP_ConfigStruct.CPHA = 0;					//0
+	SSP_ConfigStruct.CPOL =0 ;						//0
 	SSP_Init(LPC_SSP0, &SSP_ConfigStruct);
 	
-#ifdef MCB_LPC_1768
+
 		//Setting up LatchDisable and OutputEnable
 	GPIO_SetDir(0, LE, 1);
 	GPIO_SetDir(0, OE, 1);
-	GPIO_ClearValue(1, LE);
-	GPIO_SetValue(1, OE);
-#endif
+	GPIO_ClearValue(0, LE);
+	GPIO_SetValue(0, OE);
+
 
 	// Enable SSP peripheral
 	SSP_Cmd(LPC_SSP0, ENABLE);
@@ -100,25 +100,25 @@ void ssp_entry(void)	{
 //	return i;
 }
 
-void send(uint8_t data1)	{
-	uint32_t data= data1;
+void send(uint16_t data1)	{
+	uint16_t data= data1;
 	SSP_SendData(LPC_SSP0, data);
 	_delayus(5);
 
 	//Turning on Latch
-	GPIO_SetValue(1, LE);
+	GPIO_SetValue(0, LE);
 	_delayus(15);
-	GPIO_ClearValue(1, LE);
+	GPIO_ClearValue(0, LE);
 	
 	//OutputEnable
-	GPIO_ClearValue(1, OE);
+	GPIO_ClearValue(0, OE);
 	_delayus(100);
-	GPIO_SetValue(1, OE);
+	GPIO_SetValue(0, OE);
 }
 
 
 int main(void)	{
-	uint32_t data;
+	uint16_t data;
 	uint32_t i=0;
 	ssp_entry();
 	while(1<100)	{

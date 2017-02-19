@@ -121,37 +121,37 @@ typedef struct {
  */
 
 /* GPIO style ------------------------------- */
-extern void GPIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir);
-extern void GPIO_SetValue(uint8_t portNum, uint32_t bitValue);
-extern void GPIO_ClearValue(uint8_t portNum, uint32_t bitValue);
-extern uint32_t GPIO_ReadValue(uint8_t portNum);
-extern void GPIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState);
-extern FunctionalState GPIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8_t edgeState);
-extern void GPIO_ClearInt(uint8_t portNum, uint32_t bitValue);
+void GPIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir);
+void GPIO_SetValue(uint8_t portNum, uint32_t bitValue);
+void GPIO_ClearValue(uint8_t portNum, uint32_t bitValue);
+uint32_t GPIO_ReadValue(uint8_t portNum);
+void GPIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState);
+FunctionalState GPIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8_t edgeState);
+void GPIO_ClearInt(uint8_t portNum, uint32_t bitValue);
 
 /* FIO (word-accessible) style ------------------------------- */
-extern void FIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir);
-extern void FIO_SetValue(uint8_t portNum, uint32_t bitValue);
-extern void FIO_ClearValue(uint8_t portNum, uint32_t bitValue);
-extern uint32_t FIO_ReadValue(uint8_t portNum);
-extern void FIO_SetMask(uint8_t portNum, uint32_t bitValue, uint8_t maskValue);
-extern void FIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState);
-extern FunctionalState FIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8_t edgeState);
-extern void FIO_ClearInt(uint8_t portNum, uint32_t pinNum);
+void FIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir);
+void FIO_SetValue(uint8_t portNum, uint32_t bitValue);
+void FIO_ClearValue(uint8_t portNum, uint32_t bitValue);
+uint32_t FIO_ReadValue(uint8_t portNum);
+void FIO_SetMask(uint8_t portNum, uint32_t bitValue, uint8_t maskValue);
+void FIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState);
+FunctionalState FIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8_t edgeState);
+void FIO_ClearInt(uint8_t portNum, uint32_t pinNum);
 
 /* FIO (halfword-accessible) style ------------------------------- */
-extern void FIO_HalfWordSetDir(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue, uint8_t dir);
-extern void FIO_HalfWordSetMask(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue, uint8_t maskValue);
-extern void FIO_HalfWordSetValue(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue);
-extern void FIO_HalfWordClearValue(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue);
-extern uint16_t FIO_HalfWordReadValue(uint8_t portNum, uint8_t halfwordNum);
+void FIO_HalfWordSetDir(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue, uint8_t dir);
+void FIO_HalfWordSetMask(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue, uint8_t maskValue);
+void FIO_HalfWordSetValue(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue);
+void FIO_HalfWordClearValue(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue);
+uint16_t FIO_HalfWordReadValue(uint8_t portNum, uint8_t halfwordNum);
 
 /* FIO (byte-accessible) style ------------------------------- */
-extern void FIO_ByteSetDir(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, uint8_t dir);
-extern void FIO_ByteSetMask(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, uint8_t maskValue);
-extern void FIO_ByteSetValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValue);
-extern void FIO_ByteClearValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValue);
-extern uint8_t FIO_ByteReadValue(uint8_t portNum, uint8_t byteNum);
+void FIO_ByteSetDir(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, uint8_t dir);
+void FIO_ByteSetMask(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, uint8_t maskValue);
+void FIO_ByteSetValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValue);
+void FIO_ByteClearValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValue);
+uint8_t FIO_ByteReadValue(uint8_t portNum, uint8_t byteNum);
 
 /**
  * @}

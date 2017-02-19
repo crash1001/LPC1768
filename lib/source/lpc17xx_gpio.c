@@ -36,27 +36,27 @@
  * file in each example directory ("lpc17xx_libcfg.h") must be included,
  * otherwise the default FW library configuration file must be included instead
  */
-
+#ifdef __BUILD_WITH_EXAMPLE__
 #include "lpc17xx_libcfg.h"
 #else
 #include "lpc17xx_libcfg_default.h"
-
+#endif /* __BUILD_WITH_EXAMPLE__ */
 
 
 #ifdef _GPIO
 
 /* Private Functions ---------------------------------------------------------- */
 
-extern static LPC_GPIO_TypeDef *GPIO_GetPointer(uint8_t portNum);
-extern static GPIO_HalfWord_TypeDef *FIO_HalfWordGetPointer(uint8_t portNum);
-extern static GPIO_Byte_TypeDef *FIO_ByteGetPointer(uint8_t portNum);
+static LPC_GPIO_TypeDef *GPIO_GetPointer(uint8_t portNum);
+static GPIO_HalfWord_TypeDef *FIO_HalfWordGetPointer(uint8_t portNum);
+static GPIO_Byte_TypeDef *FIO_ByteGetPointer(uint8_t portNum);
 
 /*********************************************************************//**
  * @brief		Get pointer to GPIO peripheral due to GPIO port
  * @param[in]	portNum		Port Number value, should be in range from 0 to 4.
  * @return		Pointer to GPIO peripheral
  **********************************************************************/
-extern static LPC_GPIO_TypeDef *GPIO_GetPointer(uint8_t portNum)
+static LPC_GPIO_TypeDef *GPIO_GetPointer(uint8_t portNum)
 {
 	LPC_GPIO_TypeDef *pGPIO = NULL;
 
@@ -89,7 +89,7 @@ extern static LPC_GPIO_TypeDef *GPIO_GetPointer(uint8_t portNum)
  * @param[in]	portNum		Port Number value, should be in range from 0 to 4.
  * @return		Pointer to FIO peripheral
  **********************************************************************/
-extern static GPIO_HalfWord_TypeDef *FIO_HalfWordGetPointer(uint8_t portNum)
+static GPIO_HalfWord_TypeDef *FIO_HalfWordGetPointer(uint8_t portNum)
 {
 	GPIO_HalfWord_TypeDef *pFIO = NULL;
 
@@ -122,7 +122,7 @@ extern static GPIO_HalfWord_TypeDef *FIO_HalfWordGetPointer(uint8_t portNum)
  * @param[in]	portNum		Port Number value, should be in range from 0 to 4.
  * @return		Pointer to FIO peripheral
  **********************************************************************/
-extern static GPIO_Byte_TypeDef *FIO_ByteGetPointer(uint8_t portNum)
+static GPIO_Byte_TypeDef *FIO_ByteGetPointer(uint8_t portNum)
 {
 	GPIO_Byte_TypeDef *pFIO = NULL;
 
@@ -174,7 +174,7 @@ extern static GPIO_Byte_TypeDef *FIO_ByteGetPointer(uint8_t portNum)
  * Note: All remaining bits that are not activated in bitValue (value '0')
  * will not be effected by this function.
  **********************************************************************/
-extern void GPIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir)
+void GPIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir)
 {
 	LPC_GPIO_TypeDef *pGPIO = GPIO_GetPointer(portNum);
 
@@ -205,7 +205,7 @@ extern void GPIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir)
  * - For all remaining bits that are not activated in bitValue (value '0')
  * will not be effected by this function.
  **********************************************************************/
-extern void GPIO_SetValue(uint8_t portNum, uint32_t bitValue)
+void GPIO_SetValue(uint8_t portNum, uint32_t bitValue)
 {
 	LPC_GPIO_TypeDef *pGPIO = GPIO_GetPointer(portNum);
 
@@ -228,7 +228,7 @@ extern void GPIO_SetValue(uint8_t portNum, uint32_t bitValue)
  * - For all remaining bits that are not activated in bitValue (value '0')
  * will not be effected by this function.
  **********************************************************************/
-extern void GPIO_ClearValue(uint8_t portNum, uint32_t bitValue)
+void GPIO_ClearValue(uint8_t portNum, uint32_t bitValue)
 {
 	LPC_GPIO_TypeDef *pGPIO = GPIO_GetPointer(portNum);
 
@@ -245,7 +245,7 @@ extern void GPIO_ClearValue(uint8_t portNum, uint32_t bitValue)
  * Note: Return value contain state of each port pin (bit) on that GPIO regardless
  * its direction is input or output.
  **********************************************************************/
-extern uint32_t GPIO_ReadValue(uint8_t portNum)
+uint32_t GPIO_ReadValue(uint8_t portNum)
 {
 	LPC_GPIO_TypeDef *pGPIO = GPIO_GetPointer(portNum);
 
@@ -266,7 +266,7 @@ extern uint32_t GPIO_ReadValue(uint8_t portNum)
  * 							- 1: Falling edge
  * @return		None
  **********************************************************************/
-extern void GPIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState)
+void GPIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState)
 {
 	if((portNum == 0)&&(edgeState == 0))
 		LPC_GPIOINT->IO0IntEnR = bitValue;
@@ -294,7 +294,7 @@ extern void GPIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState)
  * 								edge on P0.0
  * 						- DISABLE: A rising edge has not been detected on P0.0
  **********************************************************************/
-extern FunctionalState GPIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8_t edgeState)
+FunctionalState GPIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8_t edgeState)
 {
 	if((portNum == 0) && (edgeState == 0))//Rising Edge
 		return ((FunctionalState)(((LPC_GPIOINT->IO0IntStatR)>>pinNum)& 0x1));
@@ -315,7 +315,7 @@ extern FunctionalState GPIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8
  * 							in range from 0 to 0xFFFFFFFF.
  * @return		None
  **********************************************************************/
-extern void GPIO_ClearInt(uint8_t portNum, uint32_t bitValue)
+void GPIO_ClearInt(uint8_t portNum, uint32_t bitValue)
 {
 	if(portNum == 0)
 		LPC_GPIOINT->IO0IntClr = bitValue;
@@ -332,7 +332,7 @@ extern void GPIO_ClearInt(uint8_t portNum, uint32_t bitValue)
 /**
  * @brief The same with GPIO_SetDir()
  */
-extern void FIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir)
+void FIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir)
 {
 	GPIO_SetDir(portNum, bitValue, dir);
 }
@@ -340,7 +340,7 @@ extern void FIO_SetDir(uint8_t portNum, uint32_t bitValue, uint8_t dir)
 /**
  * @brief The same with GPIO_SetValue()
  */
-extern void FIO_SetValue(uint8_t portNum, uint32_t bitValue)
+void FIO_SetValue(uint8_t portNum, uint32_t bitValue)
 {
 	GPIO_SetValue(portNum, bitValue);
 }
@@ -348,7 +348,7 @@ extern void FIO_SetValue(uint8_t portNum, uint32_t bitValue)
 /**
  * @brief The same with GPIO_ClearValue()
  */
-extern void FIO_ClearValue(uint8_t portNum, uint32_t bitValue)
+void FIO_ClearValue(uint8_t portNum, uint32_t bitValue)
 {
 	GPIO_ClearValue(portNum, bitValue);
 }
@@ -356,7 +356,7 @@ extern void FIO_ClearValue(uint8_t portNum, uint32_t bitValue)
 /**
  * @brief The same with GPIO_ReadValue()
  */
-extern uint32_t FIO_ReadValue(uint8_t portNum)
+uint32_t FIO_ReadValue(uint8_t portNum)
 {
 	return (GPIO_ReadValue(portNum));
 }
@@ -364,7 +364,7 @@ extern uint32_t FIO_ReadValue(uint8_t portNum)
 /**
  * @brief The same with GPIO_IntCmd()
  */
-extern void FIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState)
+void FIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState)
 {
 	GPIO_IntCmd(portNum, bitValue, edgeState);
 }
@@ -372,7 +372,7 @@ extern void FIO_IntCmd(uint8_t portNum, uint32_t bitValue, uint8_t edgeState)
 /**
  * @brief The same with GPIO_GetIntStatus()
  */
-extern FunctionalState FIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8_t edgeState)
+FunctionalState FIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8_t edgeState)
 {
 	return (GPIO_GetIntStatus(portNum, pinNum, edgeState));
 }
@@ -380,7 +380,7 @@ extern FunctionalState FIO_GetIntStatus(uint8_t portNum, uint32_t pinNum, uint8_
 /**
  * @brief The same with GPIO_ClearInt()
  */
-extern void FIO_ClearInt(uint8_t portNum, uint32_t bitValue)
+void FIO_ClearInt(uint8_t portNum, uint32_t bitValue)
 {
 	GPIO_ClearInt(portNum, bitValue);
 }
@@ -402,7 +402,7 @@ extern void FIO_ClearInt(uint8_t portNum, uint32_t bitValue)
  * while value '1' on bit (masked) that corresponding pin will not be changed
  * with write access and if read, will not be reflected in the updated pin.
  **********************************************************************/
-extern void FIO_SetMask(uint8_t portNum, uint32_t bitValue, uint8_t maskValue)
+void FIO_SetMask(uint8_t portNum, uint32_t bitValue, uint8_t maskValue)
 {
 	LPC_GPIO_TypeDef *pFIO = GPIO_GetPointer(portNum);
 	if(pFIO != NULL) {
@@ -434,7 +434,7 @@ extern void FIO_SetMask(uint8_t portNum, uint32_t bitValue, uint8_t maskValue)
  * Note: All remaining bits that are not activated in bitValue (value '0')
  * will not be effected by this function.
  **********************************************************************/
-extern void FIO_HalfWordSetDir(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue, uint8_t dir)
+void FIO_HalfWordSetDir(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue, uint8_t dir)
 {
 	GPIO_HalfWord_TypeDef *pFIO = FIO_HalfWordGetPointer(portNum);
 	if(pFIO != NULL) {
@@ -483,7 +483,7 @@ extern void FIO_HalfWordSetDir(uint8_t portNum, uint8_t halfwordNum, uint16_t bi
  * while value '1' on bit (masked) that corresponding pin will not be changed
  * with write access and if read, will not be reflected in the updated pin.
  **********************************************************************/
-extern void FIO_HalfWordSetMask(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue, uint8_t maskValue)
+void FIO_HalfWordSetMask(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue, uint8_t maskValue)
 {
 	GPIO_HalfWord_TypeDef *pFIO = FIO_HalfWordGetPointer(portNum);
 	if(pFIO != NULL) {
@@ -527,7 +527,7 @@ extern void FIO_HalfWordSetMask(uint8_t portNum, uint8_t halfwordNum, uint16_t b
  * - For all remaining bits that are not activated in bitValue (value '0')
  * will not be effected by this function.
  **********************************************************************/
-extern void FIO_HalfWordSetValue(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue)
+void FIO_HalfWordSetValue(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue)
 {
 	GPIO_HalfWord_TypeDef *pFIO = FIO_HalfWordGetPointer(portNum);
 	if(pFIO != NULL) {
@@ -557,7 +557,7 @@ extern void FIO_HalfWordSetValue(uint8_t portNum, uint8_t halfwordNum, uint16_t 
  * - For all remaining bits that are not activated in bitValue (value '0')
  * will not be effected by this function.
  **********************************************************************/
-extern void FIO_HalfWordClearValue(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue)
+void FIO_HalfWordClearValue(uint8_t portNum, uint8_t halfwordNum, uint16_t bitValue)
 {
 	GPIO_HalfWord_TypeDef *pFIO = FIO_HalfWordGetPointer(portNum);
 	if(pFIO != NULL) {
@@ -582,7 +582,7 @@ extern void FIO_HalfWordClearValue(uint8_t portNum, uint8_t halfwordNum, uint16_
  * Note: Return value contain state of each port pin (bit) on that FIO regardless
  * its direction is input or output.
  **********************************************************************/
-extern uint16_t FIO_HalfWordReadValue(uint8_t portNum, uint8_t halfwordNum)
+uint16_t FIO_HalfWordReadValue(uint8_t portNum, uint8_t halfwordNum)
 {
 	GPIO_HalfWord_TypeDef *pFIO = FIO_HalfWordGetPointer(portNum);
 	if(pFIO != NULL) {
@@ -615,7 +615,7 @@ extern uint16_t FIO_HalfWordReadValue(uint8_t portNum, uint8_t halfwordNum)
  * Note: All remaining bits that are not activated in bitValue (value '0')
  * will not be effected by this function.
  **********************************************************************/
-extern void FIO_ByteSetDir(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, uint8_t dir)
+void FIO_ByteSetDir(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, uint8_t dir)
 {
 	GPIO_Byte_TypeDef *pFIO = FIO_ByteGetPointer(portNum);
 	if(pFIO != NULL) {
@@ -653,7 +653,7 @@ extern void FIO_ByteSetDir(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, u
  * while value '1' on bit (masked) that corresponding pin will not be changed
  * with write access and if read, will not be reflected in the updated pin.
  **********************************************************************/
-extern void FIO_ByteSetMask(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, uint8_t maskValue)
+void FIO_ByteSetMask(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, uint8_t maskValue)
 {
 	GPIO_Byte_TypeDef *pFIO = FIO_ByteGetPointer(portNum);
 	if(pFIO != NULL) {
@@ -687,7 +687,7 @@ extern void FIO_ByteSetMask(uint8_t portNum, uint8_t byteNum, uint8_t bitValue, 
  * - For all remaining bits that are not activated in bitValue (value '0')
  * will not be effected by this function.
  **********************************************************************/
-extern void FIO_ByteSetValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValue)
+void FIO_ByteSetValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValue)
 {
 	GPIO_Byte_TypeDef *pFIO = FIO_ByteGetPointer(portNum);
 	if (pFIO != NULL) {
@@ -712,7 +712,7 @@ extern void FIO_ByteSetValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValue)
  * - For all remaining bits that are not activated in bitValue (value '0')
  * will not be effected by this function.
  **********************************************************************/
-extern void FIO_ByteClearValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValue)
+void FIO_ByteClearValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValue)
 {
 	GPIO_Byte_TypeDef *pFIO = FIO_ByteGetPointer(portNum);
 	if (pFIO != NULL) {
@@ -732,7 +732,7 @@ extern void FIO_ByteClearValue(uint8_t portNum, uint8_t byteNum, uint8_t bitValu
  * Note: Return value contain state of each port pin (bit) on that FIO regardless
  * its direction is input or output.
  **********************************************************************/
-extern uint8_t FIO_ByteReadValue(uint8_t portNum, uint8_t byteNum)
+uint8_t FIO_ByteReadValue(uint8_t portNum, uint8_t byteNum)
 {
 	GPIO_Byte_TypeDef *pFIO = FIO_ByteGetPointer(portNum);
 	if (pFIO != NULL) {
